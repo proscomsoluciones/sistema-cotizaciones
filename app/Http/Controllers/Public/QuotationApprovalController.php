@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Public;
 
 use App\Enums\QuotationStatus;
 use App\Http\Controllers\Controller;
+use App\Mail\QuotationResponseMail;
 use App\Models\Quotation;
 use App\Services\ContractGenerator;
 use App\Support\Company;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
@@ -49,6 +51,9 @@ class QuotationApprovalController extends Controller
 
         $contractGenerator->generate($quotation);
 
+        $quotation->load(['client', 'items']);
+        Mail::to(config('company.email', 'jcornejo@proscom.cl'))->send(new QuotationResponseMail($quotation, 'aprobada'));
+
         return to_route('public.quotations.show', $quotation->approval_token);
     }
 
@@ -61,6 +66,9 @@ class QuotationApprovalController extends Controller
         $quotation->status = QuotationStatus::Rejected;
         $quotation->rejected_at = now();
         $quotation->save();
+
+        $quotation->load(['client', 'items']);
+        Mail::to(config('company.email', 'jcornejo@proscom.cl'))->send(new QuotationResponseMail($quotation, 'rechazada'));
 
         return to_route('public.quotations.show', $quotation->approval_token);
     }

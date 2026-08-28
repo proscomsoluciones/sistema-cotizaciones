@@ -175,7 +175,9 @@ class QuotationController extends Controller
 
         $approvalUrl = URL::to("/cotizaciones/aprobar/{$quotation->approval_token}");
 
-        Mail::to($quotation->client->email)->send(new QuotationSentMail($quotation, $approvalUrl));
+        Mail::to($quotation->client->email)
+            ->bcc(config('company.email', 'jcornejo@proscom.cl'))
+            ->send(new QuotationSentMail($quotation, $approvalUrl));
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Cotización enviada al cliente.']);
 

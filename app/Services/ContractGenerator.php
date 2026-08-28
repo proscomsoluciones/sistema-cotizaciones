@@ -12,6 +12,12 @@ class ContractGenerator
 {
     public function generate(Quotation $quotation): Contract
     {
+        if ($quotation->contract) {
+            return $quotation->contract;
+        }
+
+        $quotation->loadMissing('items.product');
+
         $startDate = now();
         $endDate = $this->calculateEndDate($quotation, $startDate);
 
