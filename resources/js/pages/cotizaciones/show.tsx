@@ -130,21 +130,21 @@ return;
                 </div>
 
                 <div className="overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <Table>
+                    <Table className="w-full table-fixed">
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Descripción</TableHead>
-                                <TableHead>Cantidad</TableHead>
-                                <TableHead>Precio unitario</TableHead>
-                                <TableHead className="text-right">Subtotal</TableHead>
+                                <TableHead className="w-[45%] whitespace-normal">Descripción</TableHead>
+                                <TableHead className="w-[15%] text-center whitespace-normal">Cantidad</TableHead>
+                                <TableHead className="w-[20%] text-right whitespace-normal">Precio unitario</TableHead>
+                                <TableHead className="w-[20%] text-right whitespace-normal">Subtotal</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {quotation.items.map((item) => (
                                 <TableRow key={item.id}>
-                                    <TableCell>{item.description}</TableCell>
-                                    <TableCell>{item.quantity}</TableCell>
-                                    <TableCell>{formatCurrency(item.unit_price)}</TableCell>
+                                    <TableCell className="whitespace-normal break-words font-medium">{item.description}</TableCell>
+                                    <TableCell className="text-center">{item.quantity}</TableCell>
+                                    <TableCell className="text-right">{formatCurrency(item.unit_price)}</TableCell>
                                     <TableCell className="text-right">{formatCurrency(item.subtotal)}</TableCell>
                                 </TableRow>
                             ))}
