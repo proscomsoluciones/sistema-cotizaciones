@@ -65,14 +65,32 @@ export default function QuotationApprove({
                     </div>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                    <div className="overflow-hidden rounded-xl border">
+                    {/* Mobile View (< sm) */}
+                    <div className="space-y-3 sm:hidden">
+                        {quotation.items.map((item) => (
+                            <div key={item.id} className="rounded-xl border bg-card p-3.5 space-y-2 text-sm">
+                                <p className="font-semibold text-foreground leading-snug">{item.description}</p>
+                                <div className="flex items-center justify-between text-xs text-muted-foreground pt-1 border-t border-border/50">
+                                    <span>Cantidad: <strong className="text-foreground font-medium">{item.quantity}</strong></span>
+                                    <span>Precio U.: <strong className="text-foreground font-medium">{formatCurrency(item.unit_price)}</strong></span>
+                                </div>
+                                <div className="flex items-center justify-between font-semibold text-sm pt-1">
+                                    <span className="text-muted-foreground">Subtotal</span>
+                                    <span className="text-foreground">{formatCurrency(item.subtotal)}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Desktop View (>= sm) */}
+                    <div className="hidden sm:block overflow-hidden rounded-xl border">
                         <Table className="w-full table-fixed">
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead className="w-[45%] whitespace-normal">Descripción</TableHead>
-                                    <TableHead className="w-[15%] text-center whitespace-normal">Cantidad</TableHead>
-                                    <TableHead className="w-[20%] text-right whitespace-normal">Precio U.</TableHead>
-                                    <TableHead className="w-[20%] text-right whitespace-normal">Subtotal</TableHead>
+                                    <TableHead className="w-[45%]">Descripción</TableHead>
+                                    <TableHead className="w-[15%] text-center">Cantidad</TableHead>
+                                    <TableHead className="w-[20%] text-right">Precio unitario</TableHead>
+                                    <TableHead className="w-[20%] text-right">Subtotal</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
