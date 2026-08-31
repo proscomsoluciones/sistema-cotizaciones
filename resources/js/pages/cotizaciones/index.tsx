@@ -113,6 +113,8 @@ export default function QuotationsIndex({ quotations, filters, statuses }: Props
                                 <TableHead className="py-3.5 text-xs font-semibold uppercase tracking-wider text-slate-500">Cliente</TableHead>
                                 <TableHead className="py-3.5 text-xs font-semibold uppercase tracking-wider text-slate-500">Fecha</TableHead>
                                 <TableHead className="py-3.5 text-xs font-semibold uppercase tracking-wider text-slate-500">Estado</TableHead>
+                                <TableHead className="py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">Neto</TableHead>
+                                <TableHead className="py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">IVA</TableHead>
                                 <TableHead className="py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">Total</TableHead>
                                 <TableHead className="py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">Acciones</TableHead>
                             </TableRow>
@@ -120,7 +122,7 @@ export default function QuotationsIndex({ quotations, filters, statuses }: Props
                         <TableBody>
                             {quotations.data.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={6} className="py-12 text-center text-slate-500">
+                                    <TableCell colSpan={8} className="py-12 text-center text-slate-500">
                                         No hay cotizaciones que coincidan con la búsqueda.
                                     </TableCell>
                                 </TableRow>
@@ -135,7 +137,15 @@ export default function QuotationsIndex({ quotations, filters, statuses }: Props
                                     <TableCell>
                                         <QuotationStatusBadge status={quotation.status} />
                                     </TableCell>
-                                    <TableCell className="text-right font-semibold text-slate-900 dark:text-slate-100">{formatCurrency(quotation.total)}</TableCell>
+                                    <TableCell className="text-right font-medium text-emerald-600 dark:text-emerald-400">
+                                        {formatCurrency(quotation.subtotal)}
+                                    </TableCell>
+                                    <TableCell className="text-right text-xs text-slate-500 font-medium">
+                                        {formatCurrency(quotation.tax_amount)}
+                                    </TableCell>
+                                    <TableCell className="text-right font-semibold text-slate-900 dark:text-slate-100">
+                                        {formatCurrency(quotation.total)}
+                                    </TableCell>
                                     <TableCell className="text-right">
                                         <div className="flex justify-end gap-2">
                                             {(quotation.status === 'draft' || quotation.status === 'sent') && (

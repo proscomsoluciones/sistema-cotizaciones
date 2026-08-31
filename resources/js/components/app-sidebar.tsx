@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, FileSignature, FileText, FolderGit2, LayoutGrid, Package, Users } from 'lucide-react';
+import { BookOpen, FileSignature, FileText, FolderGit2, LayoutGrid, Package, Receipt, Users } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -17,6 +17,7 @@ import { dashboard } from '@/routes';
 import { index as clientesIndex } from '@/routes/clientes';
 import { index as contratosIndex } from '@/routes/contratos';
 import { index as cotizacionesIndex } from '@/routes/cotizaciones';
+import { index as pagosIndex } from '@/routes/pagos';
 import { index as productosIndex } from '@/routes/productos';
 import type { NavItem } from '@/types';
 
@@ -35,6 +36,11 @@ const mainNavItems: NavItem[] = [
         title: 'Contratos',
         href: contratosIndex(),
         icon: FileSignature,
+    },
+    {
+        title: 'Pagos',
+        href: pagosIndex(),
+        icon: Receipt,
     },
     {
         title: 'Clientes',

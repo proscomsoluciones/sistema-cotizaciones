@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\ContractPaymentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Public\QuotationApprovalController;
 use App\Http\Controllers\QuotationController;
@@ -26,6 +27,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('contratos/{contract}', [ContractController::class, 'update'])->name('contratos.update');
     Route::get('contratos/{contract}/descargar', [ContractController::class, 'download'])->name('contratos.download');
     Route::post('contratos/{contract}/regenerar-pdf', [ContractController::class, 'regeneratePdf'])->name('contratos.regenerar-pdf');
+
+    Route::get('pagos', [PaymentController::class, 'index'])->name('pagos.index');
+    Route::post('pagos', [PaymentController::class, 'store'])->name('pagos.store');
 
     Route::post('contratos/{contract}/pagos/plantilla', [ContractPaymentController::class, 'generatePlan'])->name('contratos.pagos.plantilla');
     Route::post('contratos/{contract}/pagos', [ContractPaymentController::class, 'store'])->name('contratos.pagos.store');
